@@ -10,7 +10,7 @@ const Home = () => {
             <p className="desc text-center">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure consequatur dolorem obcaecati eum repellendus nemo illum, ipsum ipsa sed, autem dolore placeat repudiandae corporis architecto. Molestias dolor voluptatum libero 
             </p>
-
+            <Feed/>
         </section>
     );
 };
