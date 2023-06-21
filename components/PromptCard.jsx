@@ -1,28 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext  } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import MyContext from "./Context/MyContext";
 
-import React from "react";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
-
-  const {data: session} = useSession();
+  const { data, updateData } = useContext(MyContext);
+  const { data: session } = useSession();
 
   const pathName = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
+  // console.log(router);
+  console.log(pathName);
+
 
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(""), 3000);
   };
+
+  const handleClickTag = (value) => {
+    console.log(value);
+    updateData(value)
+  }
+  
   return (
-    <div className="prompt-card">
-      <div className="flex jsutify-between items-start gap-5">
+    <div className="prompt_card">
+      <div className="flex justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
           <Image
             src={post.creator.image}
@@ -57,9 +66,9 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       <p className="my-4 font-satoshi text-sm text-gray-700">{post.prompt}</p>
       <p
         className="font-inter text-sm blue_gradient cursor-pointer"
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
+        onClick={(e) => handleClickTag(post.tag)}
       >
-        {post.tag}
+        #{post.tag}
       </p>
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (
@@ -78,6 +87,11 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           </p>
         </div>
       )}
+      {/* <MyContext.Consumer>
+        {(data) => {
+          console.log(data);
+        }}
+      </MyContext.Consumer> */}
     </div>
   );
 };
