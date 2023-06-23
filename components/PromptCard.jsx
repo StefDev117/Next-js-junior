@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useContext  } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import MyContext from "./Context/MyContext";
 
-
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const [copied, setCopied] = useState("");
   const { data, updateData } = useContext(MyContext);
   const { data: session } = useSession();
-
+  const router = useRouter();
+  console.log(post.creator._id);
   const pathName = usePathname();
   // const router = useRouter();
   // console.log(router);
   console.log(pathName);
-
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -26,19 +25,28 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const handleClickTag = (value) => {
     console.log(value);
-    updateData(value)
-  }
-  
+    updateData(value);
+  };
+
+  const handleFetchUser = () => {
+    // router.push(`/user?id=${post._id}`);
+    console.log(post.creator._id);
+    router.push(`/user?id=${post.creator._id}`);
+    // router.push(`/update-prompt?id=${post._id}`)
+  };
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
+          {/* <Link href="/create-prompt" className="black_btn"> */}
           <Image
             src={post.creator.image}
             alt="user_image"
             width={40}
             height={40}
             className="rounded-full object-contain"
+            onClick={handleFetchUser}
           />
 
           <div className="flex flex-col">
@@ -87,11 +95,6 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
           </p>
         </div>
       )}
-      {/* <MyContext.Consumer>
-        {(data) => {
-          console.log(data);
-        }}
-      </MyContext.Consumer> */}
     </div>
   );
 };
