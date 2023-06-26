@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useRouter } from "next/navigation";  
 
 const Nav = () => {
+  const router = useRouter();
   const {data: session} = useSession();
 
   const [providersState, setProvidersState] = useState(null);
@@ -17,10 +19,13 @@ const Nav = () => {
       setProvidersState(response);
       console.log(response);
     };
-    
+    console.log("providers state");
+    console.log(providersState ? "vrai" : "faux");
+    router.push("/");
     setProviders();
-  }, []);
+  }, [setProvidersState]);
   console.log(providersState);
+
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
