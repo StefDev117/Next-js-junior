@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import MyContext from './MyContext';
 
 function MyContextProvider({ children }) {
-  const [data, setData] = useState('Valeur initiale');
+  const [data, setData] = useState('');
 
   const updateData = (newValue) => {
     setData(newValue);
