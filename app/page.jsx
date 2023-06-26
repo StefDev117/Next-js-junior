@@ -1,10 +1,10 @@
 "use client";
 
 import Feed from "@components/Feed";
-import { MyContext } from "components/Context/mycontext";
+// import { MyContext } from "components/Context/mycontext";
 import MyContextProvider from "@components/Context/MyContextProvider";
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const Home = () => {
   const [dataProvider, setDataProvider] = useState("zertui");
