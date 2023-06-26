@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { MyContext } from "components/Context/mycontext";
+// import { MyContext } from "components/Context/mycontext";
 import MyContextProvider from "@components/Context/MyContextProvider";
 // import Profile from "@components/profile";
 import Profile from "@components/Profile";
